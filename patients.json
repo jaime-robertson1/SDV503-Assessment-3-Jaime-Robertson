@@ -1,0 +1,33 @@
+[ {
+    "username": "robertm",
+    "password": "rm123",
+    "name": "Robert Mack",
+    "age": "57",
+    "photo": "robertm.jpg",
+    "Allegies": "Penicillin",
+    "Long-term conditions": "Diabetic",
+    "Smoker": "No"
+    
+  },
+  {
+    "username": "stacyh",
+    "password": "sh123",
+    "name": "Stacy Henderson",
+    "age": "32",
+    "photo": "stacyh.jpg",
+    "Allegies": "None",
+    "Long-term conditions": "None",
+    "Smoker": "No"
+  },
+  {
+    "username": "ruthc",
+    "password": "ruthc123",
+    "name": "Ruth Cullen",
+    "age": "47",
+    "photo": "ruthc.jpg",
+    "Allegies": "None",
+    "Long-term conditions": "None",
+    "Smoker": "Yes"
+  }
+
+]

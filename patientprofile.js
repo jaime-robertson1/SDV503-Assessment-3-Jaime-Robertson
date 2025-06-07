@@ -4,6 +4,24 @@ const readline = require('readline');
 // Import the fs (filesystem) module for reading/writing files
 const fs = require('fs');
 
+const FILE = 'patients.json'
+
+let patients = []
+
+// Check if the tasks.json file exists
+if (fs.existsSync(FILE)) {
+  try {
+    // If file exists, read its contents (synchronously)
+    const data = fs.readFileSync(FILE, 'utf8');
+    // Parse JSON string into the todos array
+    todos = JSON.parse(data);
+  } catch (e) {
+    // If there is any error, start with an empty array
+    todos = [];
+  }
+}
+
+
 // Create a readline interface for command line interaction
 const rl = readline.createInterface({
   input: process.stdin,   // Set standard input (keyboard) as input source
@@ -19,14 +37,23 @@ function showMenu() {
   rl.question('\nChoose an option (1, 2 or 3): ', handleMenu);        // Prompt user for menu choice
 }
 
+function savePatients() {
+  fs.WriteFileSync(FILE, JSON.stringify(patients, null, 2))
+}
+
+const providers = [
+  { username: 'drmatthews', password: 'matthews123'},
+  { username: 'drprice', password: 'price123'}
+]
+
 // Function to handle the menu option entered by the user
 function handleMenu(choice) {
   switch (choice.trim()) {                // Use the trimmed input for comparison
     case '1':
-      patientLogin();                     // If '1', Prompt patient login 
+      loginUser('patient');                     // If '1', Prompt patient login 
       break;
     case '2':
-      providerLogin();                    // If '2', Prompt provider login
+      loginUser('provider');                    // If '2', Prompt provider login
       break;
     case '3':
       console.log('Goodbye!');           // If '3', Print goodbye and close the app
@@ -39,6 +66,27 @@ function handleMenu(choice) {
   }
 }
 
+function loginUser (type) {
+  rl.question('Username: ', username => {
+    rl.question('Password: ', password => {
+      if (type === 'patient') {
+        const user = patients.find(p => p.username === username && p.password ===password)
+        if (user) {
+          console.log(`\nWelcome, ${user.name} (patient)!`)
+          patientMenu(user)
+        } else {
+            if (type === 'provider') {
+            const user = providers.find(p => p.username === username && p.password === password)
+            if (user) {
+              console.log(`\nWelcome, ${user.username} (provider)!`)
+              providerMenu()
+          }
+          }
+        }
+      }
+    })
+  })
+}
 
 function patientLogin() {
   console.log('\nPlease enter your username and password: ')

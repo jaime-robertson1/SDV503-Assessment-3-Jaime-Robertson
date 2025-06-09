@@ -92,12 +92,35 @@ function patientMenu(patient) {
   console.log('\n1. View My Profile')
   console.log('2. Edit My Profile')
   console.log('3. Logout')
-  rl.question('\nChoose an option: '), choice => {
+  rl.question('\nChoose an option: ', choice => {
     switch (choice.trim()) {
       case '1':
-        console.log('\nName: ${patient.name}\nAge: ${patient.age}\n')
+        console.log('\nName: ${patient.name}\nDob: ${patient.dob}\nPhoto: ${patient.photo}\nAllergies: ${patient.allergies}\nConditions: ${patient.conditions}\nMedications: ${patient.medications}\nSmoker: ${patient.smoker}')
+        patientMenu(patient)
+        break
+      case '2':
+        editPatientProfile(patient, () => patientMenu(patient))
+        break
+      case '3':
+        showMenu()
+        break
+      default:
+        console.log('Invalid choice.')
+        patientMenu(patient)   
     }
-  }
+  })
+}
+
+function providerMenu() {
+  console.log('\n1. View All Patients')
+  console.log('2. Edit a Patient Profile')
+  console.log('3. Logout')
+  rl.question('\nChoose an option: ', choice => {
+    switch (choice.trim()) {
+      case '1':
+        console.log('\nName: ${patient.')
+    }
+  })
 }
 
 // function patientLogin() {

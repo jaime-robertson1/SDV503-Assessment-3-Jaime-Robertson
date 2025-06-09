@@ -2,32 +2,35 @@
     "username": "robertm",
     "password": "rm123",
     "name": "Robert Mack",
-    "D.O.B": "28/09/1954",
+    "dob": "28/09/1954",
     "photo": "robertm.jpg",
-    "Allegies": "Penicillin",
-    "Long-term conditions": "Diabetic",
-    "Smoker": "No"
+    "allergies": "Penicillin",
+    "conditions": "Diabetic",
+    "medications": "insulin",
+    "smoker": "No"
     
   },
   {
     "username": "stacyh",
     "password": "sh123",
     "name": "Stacy Henderson",
-    "D.O.B": "04/08/1975",
+    "dob": "04/08/1975",
     "photo": "stacyh.jpg",
-    "Allegies": "None",
-    "Long-term conditions": "None",
-    "Smoker": "No"
+    "allergies": "None",
+    "conditions": "None",
+    "medications": "None", 
+    "smoker": "No"
   },
   {
     "username": "ruthc",
     "password": "ruthc123",
     "name": "Ruth Cullen",
-    "D.O.B": "11/02,1989",
+    "dob": "11/02,1989",
     "photo": "ruthc.jpg",
-    "Allegies": "None",
-    "Long-term conditions": "None",
-    "Smoker": "Yes"
+    "allergies": "None",
+    "conditions": "None",
+    "medications": "None",
+    "smoker": "Yes"
   }
 
 ]

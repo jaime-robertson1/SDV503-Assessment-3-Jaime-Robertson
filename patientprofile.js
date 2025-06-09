@@ -88,16 +88,28 @@ function loginUser (type) {
   })
 }
 
-function patientLogin() {
-  console.log('\nPlease enter your username and password: ')
-  rl.question('\nUsername: ');                 
-    
+function patientMenu(patient) {
+  console.log('\n1. View My Profile')
+  console.log('2. Edit My Profile')
+  console.log('3. Logout')
+  rl.question('\nChoose an option: '), choice => {
+    switch (choice.trim()) {
+      case '1':
+        console.log('\nName: ${patient.name}\nAge: ${patient.age}\n')
+    }
+  }
 }
 
-function providerLogin() {  
-    console.log('\nPlease enter your username and password: ')                  
-    rl.question('\nUsername: ');   
-  }
+// function patientLogin() {
+//   console.log('\nPlease enter your username and password: ')
+//   rl.question('\nUsername: ');                 
+    
+// }
+
+// function providerLogin() {  
+//     console.log('\nPlease enter your username and password: ')                  
+//     rl.question('\nUsername: ');   
+//   }
   
 
 // Start the app by showing the main menu

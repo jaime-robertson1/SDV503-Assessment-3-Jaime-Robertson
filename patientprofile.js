@@ -14,10 +14,10 @@ if (fs.existsSync(FILE)) {
     // If file exists, read its contents (synchronously)
     const data = fs.readFileSync(FILE, 'utf8');
     // Parse JSON string into the todos array
-    todos = JSON.parse(data);
+    patients = JSON.parse(data);
   } catch (e) {
     // If there is any error, start with an empty array
-    todos = [];
+    patients = [];
   }
 }
 
@@ -38,7 +38,7 @@ function showMenu() {
 }
 
 function savePatients() {
-  fs.WriteFileSync(FILE, JSON.stringify(patients, null, 2))
+  fs.writeFileSync(FILE, JSON.stringify(patients, null, 2))
 }
 
 const providers = [
@@ -75,16 +75,20 @@ function loginUser (type) {
           console.log(`\nWelcome, ${user.name} (patient)!`)
           patientMenu(user)
         } else {
-            if (type === 'provider') {
+          console.log('Invalid credentials. \n')
+          showMenu()
+        }
+       } else if (type === 'provider') {
             const user = providers.find(p => p.username === username && p.password === password)
             if (user) {
               console.log(`\nWelcome, ${user.username} (provider)!`)
               providerMenu()
-          }
+          } else {
+            console.log('Invalid credentials. \n')
+            showMenu()
           }
         }
-      }
-    })
+     })
   })
 }
 
@@ -95,7 +99,7 @@ function patientMenu(patient) {
   rl.question('\nChoose an option: ', choice => {
     switch (choice.trim()) {
       case '1':
-        console.log('\nName: ${patient.name}\nDob: ${patient.dob}\nPhoto: ${patient.photo}\nAllergies: ${patient.allergies}\nConditions: ${patient.conditions}\nMedications: ${patient.medications}\nSmoker: ${patient.smoker}')
+        console.log('\nName: ${patient.name}\nDob: ${patient.dob}\nContact: ${patient.contactnumber}\nPhoto: ${patient.photo}\nAllergies: ${patient.allergies}\nConditions: ${patient.conditions}\nMedications: ${patient.medications}\nSmoker: ${patient.smoker}')
         patientMenu(patient)
         break
       case '2':
@@ -118,21 +122,63 @@ function providerMenu() {
   rl.question('\nChoose an option: ', choice => {
     switch (choice.trim()) {
       case '1':
-        console.log('\nName: ${patient.')
+        patients.forEach((p, i) => {
+          console.log(`\n[${i}] ${p.name}, Dob: ${p.dob}, Contact: ${p.contactnumber}, Photo: ${p.photo}, Allergies: ${p.allergies}, Conditions: ${p.conditions}, Medications: ${p.medications}, Smoker: ${p.smoker}`)
+        })
+        providerMenu()
+        break
+      case '2':
+        rl.question('Enter patient username to edit: ', username => {
+          const patient = patients.find(p => p.username === username)
+          if (patient) {
+            editProfileProvider(patient, () => providerMenu())
+          } else {
+            console.log('Patient not found.')
+            providerMenu()
+          }
+        })
+        break
+      case '3':
+        showMenu()
+        break
+      default:
+        console.log('Invalid choice.')
+        providerMenu()
     }
   })
 }
 
-// function patientLogin() {
-//   console.log('\nPlease enter your username and password: ')
-//   rl.question('\nUsername: ');                 
-    
-// }
+function editPatientProfile(patient, callback) {
+  rl.question(`Enter new contact number: [${patient.contactnumber}]: `, contactnumber => {
+    rl.question(`Attach new photo: [${patient.photo}]: `, photo => {
+      rl.question(`Smoker: Y or N [${patient.smoker}]: `, smoker => {
+      console.log("If you want to update any other information, please contact your healthcare provider.")
+        if (contactnumber) patient.contactnumber = contactnumber
+        if (photo) patient.photo = photo
+        if (smoker) patient.smoker = smoker 
+        savePatients()
+        console.log('Profile updated successfully.')
+        callback()
+      })
+    })
+  })
+}
 
-// function providerLogin() {  
-//     console.log('\nPlease enter your username and password: ')                  
-//     rl.question('\nUsername: ');   
-//   }
+function editProfileProvider(patient, callback) {
+  rl.question(`Enter new contact number: [${patient.contactnumber}]: `, contactnumber => {
+    rl.question(`Attach new photo: [${patient.photo}]: `, photo => {
+      rl.question(`Smoker: Y or N [${patient.smoker}]: `, smoker => {
+      console.log("If you want to update any other information, please contact your healthcare provider.")
+        if (contactnumber) patient.contactnumber = contactnumber
+        if (photo) patient.photo = photo
+        if (smoker) patient.smoker = smoker 
+        savePatients()
+        console.log('Profile updated successfully.')
+        callback()
+      })
+    })
+  })
+}
   
 
 // Start the app by showing the main menu

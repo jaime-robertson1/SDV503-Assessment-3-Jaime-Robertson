@@ -1,4 +1,5 @@
-[ {
+[
+  {
     "username": "robertm",
     "password": "rm123",
     "name": "Robert Mack",
@@ -9,7 +10,6 @@
     "conditions": "Diabetic",
     "medications": "insulin",
     "smoker": "No"
-    
   },
   {
     "username": "stacyh",
@@ -20,7 +20,7 @@
     "photo": "stacyh.jpg",
     "allergies": "None",
     "conditions": "None",
-    "medications": "None", 
+    "medications": "None",
     "smoker": "No"
   },
   {
@@ -28,12 +28,11 @@
     "password": "ruthc123",
     "name": "Ruth Cullen",
     "dob": "11/02/1989",
-    "contactnumber": "0218328590",
+    "contactnumber": "0228752110",
     "photo": "ruthc.jpg",
     "allergies": "None",
     "conditions": "None",
     "medications": "None",
     "smoker": "Yes"
   }
-
 ]

@@ -82,19 +82,19 @@ function loginUser (type) {
       if (type === 'patient') {              // if the number selected is 1 for patient, 
         const user = patients.find(p => p.username === username && p.password === password) // patients.find returns the first element in the array that satisfies the testing function.
         if (user) {                             // in this case, the patient array is checked until it finds a case where the username and password match the ones inputted by the user.
-          console.log(`\nWelcome, ${user.name} (patient)!`)  // lets the user know they have successfully entered the patient menu
-          patientMenu(user)                                  // the user is directed to the patientMenu()
-        } else {                                             // if the username and password cannot be found in the patient array, the person is not able to log in
+          console.log(`\nWelcome, ${user.name} (patient)!`)         // lets the user know they have successfully entered the patient menu
+          patientMenu(user)                                         // the user is directed to the patientMenu()
+        } else {                                                    // if the username and password cannot be found in the patient array, the person is not able to log in
           console.log('Invalid credentials. Please try again. \n')  // they are then prompted to enter their details again in case they made a mistake.
           showMenu()                                                // the main menu is shown so they can try again
         }
-       } else if (type === 'provider') {
+       } else if (type === 'provider') {                            // if the user logging in is not a patient, check if provider 
             const user = providers.find(p => p.username === username && p.password === password)
             if (user) {
-              console.log(`\nWelcome, ${user.username} (provider)!`)
+              console.log(`\nWelcome, ${user.username} (provider)!`) // lets the user know they have successfully entered the provider menu
               providerMenu()
           } else {
-            console.log('Invalid credentials. Please try again. \n')
+            console.log('Invalid credentials. Please try again. \n') // if credentionals are wrong they're given a chance to input them again
             showMenu()
           }
         }
@@ -104,7 +104,7 @@ function loginUser (type) {
 
 // Function to show menu for patients after successfully logging in
 function patientMenu(patient) {
-  console.log('\n1. View My Profile')
+  console.log('\n1. View My Profile') // three choices that the patient can make
   console.log('2. Edit My Profile')
   console.log('3. Logout')
   rl.question('\nChoose an option: ', choice => {
@@ -128,7 +128,7 @@ function patientMenu(patient) {
 
 // Function to show menu for providers after successfully logging in
 function providerMenu() {
-  console.log('\n1. View All Patients')
+  console.log('\n1. View All Patients') // three choices that the provider can make
   console.log('2. Edit a Patient Profile')
   console.log('3. Logout')
   rl.question('\nChoose an option: ', choice => {
@@ -160,9 +160,10 @@ function providerMenu() {
   })
 }
 
+// function to enable editing in the patient menu
 function editPatientProfile(patient) {
   console.log("Type in new details, if information is already correct press enter to skip")
-  rl.question(`Enter new contact number: [${patient.contactnumber}]: `, contactnumber => {
+  rl.question(`Enter new contact number: [${patient.contactnumber}]: `, contactnumber => { // Only fields that the patient is allowed to edit are included
     rl.question(`Attach new photo: [${patient.photo}]: `, photo => {
       rl.question(`Smoker: Y or N [${patient.smoker}]: `, smoker => {
         console.log("If you want to update any other information, please contact your healthcare provider.")
@@ -170,16 +171,17 @@ function editPatientProfile(patient) {
         if (photo) patient.photo = photo
         if (smoker) patient.smoker = smoker 
         savePatients()
-          console.log('Profile updated successfully.')
+          console.log('Profile updated successfully.')   // informing the user that their changes have been saved successfully
           patientMenu()
       })
     })
   })
 }
 
+// function to enable editing in the provider menu
 function editProfileProvider(patient) {
-  console.log("Type in new details, if information is already correct press enter to skip")
-  rl.question(`Enter a new name: [${patient.name}]: `, name => {
+  console.log("Type in new details, if information is already correct press enter to skip") // If the info is already correct then enter can be pressed to skip that section
+  rl.question(`Enter a new name: [${patient.name}]: `, name => {                            // All fields are editable because the provider has the permissions
     rl.question(`Enter a new dob: [${patient.dob}]: `, dob => {
       rl.question(`Enter new contact number: [${patient.contactnumber}]: `, contactnumber => {
         rl.question(`Attach new photo: [${patient.photo}]: `, photo  => {

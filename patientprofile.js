@@ -134,54 +134,54 @@ function providerMenu() {
   rl.question('\nChoose an option: ', choice => { // User inputs choice 
     switch (choice.trim()) {
       case '1':
-        patients.forEach((p, i) => {
+        patients.forEach((p, i) => {       // Lists each patient and their details in the array, using indexing in the array
           console.log(`\n[${i}] ${p.name}, Dob: ${p.dob}, Contact: ${p.contactnumber}, Photo: ${p.photo}, Allergies: ${p.allergies}, Conditions: ${p.conditions}, Medications: ${p.medications}, Smoker: ${p.smoker}`)
         })
-        providerMenu()
+        providerMenu()                     // After showing all patients, show menu again 
         break
       case '2':
-        rl.question('Enter patient username to edit: ', username => {
-          const patient = patients.find(p => p.username === username)
-          if (patient) {
+        rl.question('Enter patient username to edit: ', username => {  // In order to edit a particular patient, their username is entered
+          const patient = patients.find(p => p.username === username)  // Uses the .find method again to check if there is a matching username in the patients array
+          if (patient) {                                               // If the patient username is found, display new editing menu (to be made further down)
             editProfileProvider(patient, () => providerMenu())
-          } else {
-            console.log('Patient not found.')
-            providerMenu()
+          } else {                               
+            console.log('Patient not found. Please try again.')         // If the patients username can't be found in the array, display an error message to the user
+            providerMenu()                                              // Prompt provider menu again so they can try again
           }
         })
         break
       case '3':
-        showMenu()
+        showMenu()                                                      // Simulates logging out the provider by moving them back to the main menu                                
         break
       default:
-        console.log('Invalid choice. Try again with a valid number')
-        providerMenu()
+        console.log('Invalid choice. Try again with a valid number')    // If number 1-3 isn't selected, prompt user to enter valid number 
+        providerMenu()                                                  // Show menu for them to try again
     }
   })
 }
 
-// function to enable editing in the patient menu
-function editPatientProfile(patient) {
-  console.log("Type in new details, if information is already correct press enter to skip")
-  rl.question(`Enter new contact number: [${patient.contactnumber}]: `, contactnumber => { // Only fields that the patient is allowed to edit are included
+// Function to enable editing in the patient menu
+function editPatientProfile(patient) {                                                      // Using the same naming as stated earlier where the function is called
+  console.log("Type in new details, if information is already correct press enter to skip") // If the info is already correct, enter can be pressed to skip that section
+  rl.question(`Enter new contact number: [${patient.contactnumber}]: `, contactnumber => {  // Only fields that the patient is allowed to edit are included
     rl.question(`Attach new photo: [${patient.photo}]: `, photo => {
       rl.question(`Smoker: Y or N [${patient.smoker}]: `, smoker => {
-        console.log("If you want to update any other information, please contact your healthcare provider.")
+        console.log("If you want to update any other information, please contact your healthcare provider.") // Since the patient is limited in what they can edit, inform method for updating other info
         if (contactnumber) patient.contactnumber = contactnumber
         if (photo) patient.photo = photo
         if (smoker) patient.smoker = smoker 
-        savePatients()
-          console.log('Profile updated successfully.')   // informing the user that their changes have been saved successfully
-          patientMenu()
+        savePatients()                                   // Save updated info to the array in the patients json
+          console.log('Profile updated successfully.')   // Informing the user that their changes have been saved successfully
+          patientMenu()                                  // Show menu again so another choice can be selected if desired
       })
     })
   })
 }
 
-// function to enable editing in the provider menu
-function editProfileProvider(patient) {
+// Function to enable editing in the provider menu
+function editProfileProvider(patient) {                                                     // Using the same naming as stated earlier where the function is called 
   console.log("Type in new details, if information is already correct press enter to skip") // If the info is already correct then enter can be pressed to skip that section
-  rl.question(`Enter a new name: [${patient.name}]: `, name => {                            // All fields are editable because the provider has the permissions
+  rl.question(`Enter a new name: [${patient.name}]: `, name => {                            // All fields are editable because the provider has the authority 
     rl.question(`Enter a new dob: [${patient.dob}]: `, dob => {
       rl.question(`Enter new contact number: [${patient.contactnumber}]: `, contactnumber => {
         rl.question(`Attach new photo: [${patient.photo}]: `, photo  => {
@@ -198,9 +198,9 @@ function editProfileProvider(patient) {
                     if (conditions) patient.conditions = conditions 
                     if (medications) patient.medications = medications 
                     if (smoker) patient.smoker = smoker 
-                    savePatients()
-                      console.log('Profile updated successfully.')
-                      providerMenu()
+                    savePatients()                                   // Save updated info to the array in the patients json
+                      console.log('Profile updated successfully.')   // Informing the user that their changes have been saved successfully
+                      providerMenu()                                 // Show menu again so another choice can be selected if desired
                   })
                 })
               })
